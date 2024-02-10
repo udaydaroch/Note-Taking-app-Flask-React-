@@ -1,1 +1,0 @@
-Simple note taking app
