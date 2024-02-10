@@ -1,0 +1,75 @@
+.note-container {
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+input[type="date"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.note-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.note-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.pagination {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+}
+
+.pagination li {
+  margin-right: 5px;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  background-color: #ddd;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.loading {
+  margin: 20px auto;
+  font-style: italic;
+  color: #999;
+}
+
+
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}

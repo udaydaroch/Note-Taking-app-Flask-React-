@@ -24,6 +24,16 @@ def delete_note(note_id):
     save_notes()
     return jsonify({'message': 'Note deleted successfully'})
 
+@app.route('/edit_note/<int:note_id>', methods=['POST'])
+def edit_note(note_id):
+    data = request.get_json()  # Get JSON data from the request
+    note_text = data.get('text')
+    note_color = data.get('color')
+    note_date = data.get('date')
+    notes[note_id] = {"text": note_text, "color": note_color, "date": note_date}
+    save_notes()
+    return jsonify({'message': 'Note edited successfully'})
+
 @app.route('/add_note', methods=['POST'])
 def add_note():
     note_text = request.form['note_text']

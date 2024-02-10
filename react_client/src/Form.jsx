@@ -1,15 +1,23 @@
-// Form.jsx
-import React from 'react';
+import React, { useState } from 'react';
 
-function Form({ noteText, setNoteText, noteColor, setNoteColor, noteDate, setNoteDate, addNote }) {
+function Form({ noteText, setNoteText, noteColor, setNoteColor, noteDate, setNoteDate, addNote, loadNotes}) {
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     addNote();
     setNoteText('');
     setNoteColor('#FFFFF');
     setNoteDate(new Date().toISOString().split('T')[0]);
+    setShowSuccessMessage(true);
+
+    // Hide the success message after 3 seconds
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000);
+    loadNotes();
   };
-//
+
   const styles = {
     form: {
       display: 'flex',
@@ -55,6 +63,10 @@ function Form({ noteText, setNoteText, noteColor, setNoteColor, noteDate, setNot
       fontSize: '16px',
       overflowY: 'scroll',
     },
+    successMessage: {
+      color: 'green',
+      marginTop: '10px',
+    },
   };
 
   return (
@@ -72,6 +84,7 @@ function Form({ noteText, setNoteText, noteColor, setNoteColor, noteDate, setNot
         placeholder="Enter note text" 
         style={styles.textInput} 
       />
+      {showSuccessMessage && <div style={styles.successMessage}>Note successfully added to the database!</div>}
     </form>
   );
 }

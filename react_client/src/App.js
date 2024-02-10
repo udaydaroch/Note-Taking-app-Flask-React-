@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Form from './Form';
 import AppHeader from './AppHeader';
-import Notes from './notes';
+import SearchBar from './SearchBar.jsx';
 //
 function App() {
   const [notes, setNotes] = useState([]);
@@ -19,8 +19,8 @@ function App() {
 
   const loadNotes = () => {
     fetch("/notes", {
-    method:'GET'}
-    )
+      method: 'GET'
+    })
       .then(res => res.json())
       .then(data => {
         setNotes(data);
@@ -42,15 +42,31 @@ function App() {
     .then(res => res.json())
     .then(data => {
       console.log(data);
-      loadNotes();
+     
     })
     .catch(error => {
       console.error('Error adding note:', error);
     });
   };
 
+  /* const editNote = (noteId, updatedNoteData) => {
+    fetch(`/edit_note/${noteId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedNoteData)
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+        loadNotes();
+    })
+    .catch(error => {
+        console.error('Error editing note:', error);
+    });
+}; */
   
-
   const deleteNote = (noteId) => {
     fetch(`/delete_note/${noteId}`, {
       method: 'POST'
@@ -76,8 +92,11 @@ function App() {
         noteDate={noteDate} 
         setNoteDate={setNoteDate} 
         addNote={addNote} 
+        loadNotes={loadNotes}
       />
-      <Notes notes={notes} deleteNote = {deleteNote}/> 
+        
+      <SearchBar allNotes={notes} loadNote={loadNotes} deleteNote={deleteNote} />
+  
     </div>
   );
 }
