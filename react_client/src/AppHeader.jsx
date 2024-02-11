@@ -3,7 +3,7 @@ import React from 'react';
 function AppHeader(props) {
   const styles = {
     fontSize: "8em",
-    color: "grey",
+    color: "",
     justifyContent:"center",
     alignSelf: "center",
     display:"flex",

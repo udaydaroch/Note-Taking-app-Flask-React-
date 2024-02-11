@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import "./Form.css";
 
-function Form({ noteText, setNoteText, noteColor, setNoteColor, noteDate, setNoteDate, addNote, loadNotes}) {
+function Form({ noteText, setNoteText, noteColor, setNoteColor, noteDate, setNoteDate, addNote, loadNotes }) {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [selectedFont, setSelectedFont] = useState('Arial'); // State for selected font
 
   const handleSubmit = (e) => {
     e.preventDefault();
     addNote();
     setNoteText('');
-    setNoteColor('#FFFFF');
+    setNoteColor('#FFFFFF'); // Set the default color to white
     setNoteDate(new Date().toISOString().split('T')[0]);
     setShowSuccessMessage(true);
 
@@ -18,73 +20,37 @@ function Form({ noteText, setNoteText, noteColor, setNoteColor, noteDate, setNot
     loadNotes();
   };
 
-  const styles = {
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center', // Center the form horizontally
-      marginBottom: '20px',
-    },
-    inputGroup: {
-      display: 'flex',
-      marginBottom: '10px',
-    },
-    firstthreeOption: {
-      padding: "20px",
-      display:"flex",
-      justifyContent:"center",
-      gap: '10px', // Add small gap between elements
-    },
-    input: {
-      padding: '5px',
-      border: '1px solid #ccc',
-      borderRadius: '5px',
-      fontSize: '16px',
-    },
-    button: {
-      padding: '10px 20px',
-      backgroundColor: '#4CAF50',
-      color: 'white',
-      border: 'none',
-      borderRadius: '5px',
-      cursor: 'pointer',
-      fontSize: '16px',
-      transition: 'background-color 0.3s ease',
-    },
-    buttonHover: {
-      backgroundColor: '#45a049',
-    },
-    textInput: {
-      width: '400px', // Set width to 400px
-      height: '100px',
-      padding: '5px',
-      border: '1px solid #ccc',
-      borderRadius: '5px',
-      fontSize: '16px',
-      overflowY: 'scroll',
-    },
-    successMessage: {
-      color: 'green',
-      marginTop: '10px',
-    },
-  };
-
   return (
-    <form onSubmit={handleSubmit} style={styles.form}>
-      <div style={styles.inputGroup}>
-        <div style={styles.firstthreeOption}>
-          <input type="color" value={noteColor} onChange={(e) => setNoteColor(e.target.value)} style={{ ...styles.input, width: '50px' }} /> {/* Adjust width of color input */}
-          <input type="date" value={noteDate} onChange={(e) => setNoteDate(e.target.value)} style={{ ...styles.input, width: '100px' }} /> {/* Adjust width of date input */}
-          <button type="submit" style={styles.button}>Add Note</button>
+    <form className="form" onSubmit={handleSubmit}>
+      <div className="inputGroup">
+        <div className="firstthreeOption">
+          <input type="color" className="colorInput" value={noteColor} onChange={(e) => setNoteColor(e.target.value)} style={{ width: '50px' }} />
+          <input type="date" className="dateInput" value={noteDate} onChange={(e) => setNoteDate(e.target.value)} style={{ width: '100px' }} />
+        
+           <select
+          className="fontSelect"
+          value={selectedFont}
+          onChange={(e) => setSelectedFont(e.target.value)}
+        >
+          <option value="Arial">Arial</option>
+          <option value="Helvetica">Helvetica</option>
+          <option value="Times New Roman">Times New Roman</option>
+        </select>
+        <button type="submit" className="button">Add Note</button>
         </div>
       </div>
-      <textarea 
-        value={noteText} 
-        onChange={(e) => setNoteText(e.target.value)} 
-        placeholder="Enter note text" 
-        style={styles.textInput} 
-      />
-      {showSuccessMessage && <div style={styles.successMessage}>Note successfully added to the database!</div>}
+      <div className="inputGroup">
+
+        <textarea
+          className="textInput"
+          value={noteText}
+          onChange={(e) => setNoteText(e.target.value)}
+          placeholder="Enter note text"
+          style={{ fontFamily: selectedFont }} // Apply selected font to textarea
+        />
+       
+      </div>
+      {showSuccessMessage && <div className="successMessage">Note successfully added to the database!</div>}
     </form>
   );
 }

@@ -24,7 +24,33 @@ function SearchBar({ allNotes, loadNote, deleteNote }) {
     handleSearch();
   };
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+
+  const handleInputChange = (e) => {
+    let page = parseInt(e.target.value);
+    console.log(page);
+    const maxPage = Math.ceil(filteredNotes.length / notesPerPage);
+  
+  
+    if (page < 1) {
+      page = 1;
+    } else if (page > maxPage) {
+      page = maxPage;
+    }
+  
+    setCurrentPage(page);
+  };
+  
+  
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) =>
+      Math.min(prevPage + 1, Math.ceil(filteredNotes.length / notesPerPage))
+    );
+  };
 
   const indexOfLastNote = currentPage * notesPerPage;
   const indexOfFirstNote = indexOfLastNote - notesPerPage;
@@ -50,15 +76,17 @@ function SearchBar({ allNotes, loadNote, deleteNote }) {
       </ul>
 
       {filteredNotes.length > notesPerPage ? (
-        <ul className="pagination">
-          {Array.from({ length: Math.ceil(filteredNotes.length / notesPerPage) }, (_, i) => i + 1).map((page) => (
-            <li key={page}>
-              <button onClick={() => paginate(page)} className={page === currentPage ? 'active' : ''}>
-                {page}
-              </button>
-            </li>
-          ))}
-        </ul>
+        <div className="pagination">
+          <button onClick={handlePreviousPage}>&#8249;</button>
+          <input 
+            type="number"
+            value={currentPage}
+            onChange={handleInputChange}
+            min="0"
+            max={Math.ceil(filteredNotes.length / notesPerPage)}
+          />
+          <button onClick={handleNextPage}>&#8250;</button>
+        </div>
       ) : null}
     </div>
   );

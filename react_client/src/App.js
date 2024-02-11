@@ -3,15 +3,19 @@ import React, { useState, useEffect } from 'react';
 import Form from './Form';
 import AppHeader from './AppHeader';
 import SearchBar from './SearchBar.jsx';
-//
+import Login from './Login.jsx';
+import './App.css';
 function App() {
   const [notes, setNotes] = useState([]);
   const [noteText, setNoteText] = useState('');
-  const [noteColor, setNoteColor] = useState('#FFFFF'); 
+  const [noteColor, setNoteColor] = useState('#FFFFFF'); 
   const currentDate = new Date(Date.now());
   const formattedDate = currentDate.toISOString().split('T')[0];
-  console.log(formattedDate)
   const [noteDate, setNoteDate] = useState(formattedDate);
+  const [loggedin, isLoggedin] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     loadNotes();
@@ -81,22 +85,60 @@ function App() {
     });
   };
 
+  const handleLogin = () => {
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
+    fetch("/", {
+        method: 'POST',
+        body: formData,
+        credentials: 'same-origin'
+    })
+    .then(res => {
+        if (res.ok) {
+            isLoggedin(true);
+            setErrorMessage('');
+        } else {
+            return res.json();
+        }
+    })
+    .then(data => {
+       console.log(data)
+        if (data && data.message) {
+            setErrorMessage(data.message);
+        } else {
+            setErrorMessage('Unknown error occurred');
+        }
+    })
+    .catch(error => {
+        console.error('Error logging in:', error);
+        setErrorMessage('Error logging in: Please try again later');
+    });
+};
+
+
+
   return (
-    <div>
-      <AppHeader/>
-      <Form 
-        noteText={noteText} 
-        setNoteText={setNoteText} 
-        noteColor={noteColor} 
-        setNoteColor={setNoteColor} 
-        noteDate={noteDate} 
-        setNoteDate={setNoteDate} 
-        addNote={addNote} 
-        loadNotes={loadNotes}
-      />
-        
-      <SearchBar allNotes={notes} loadNote={loadNotes} deleteNote={deleteNote} />
-  
+    <div className="background">
+      {loggedin ? (
+        <>
+          <AppHeader/>
+          <Form 
+            noteText={noteText} 
+            setNoteText={setNoteText} 
+            noteColor={noteColor} 
+            setNoteColor={setNoteColor} 
+            noteDate={noteDate} 
+            setNoteDate={setNoteDate} 
+            addNote={addNote} 
+            loadNotes={loadNotes}
+          /> 
+          <SearchBar allNotes={notes} loadNote={loadNotes} deleteNote={deleteNote} />
+        </>
+      ) : (
+       <Login username={username} setUsername={setUsername} password= {password} setPassword={setPassword}
+       handleLogin={handleLogin} errorMessage={errorMessage} />
+      )}
     </div>
   );
 }

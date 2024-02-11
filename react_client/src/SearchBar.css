@@ -40,6 +40,8 @@ button:hover {
   list-style-type: none;
   padding: 0;
   display: flex;
+  justify-content: center;
+  align-self:center;
 }
 
 .pagination li {
@@ -48,14 +50,14 @@ button:hover {
 
 .pagination button {
   padding: 5px 10px;
-  background-color: #ddd;
+  background-color:#60e464;
   color: #333;
   border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.pagination button.active {
+.pagination button:hover {
   background-color: #4CAF50;
   color: white;
 }
@@ -65,7 +67,6 @@ button:hover {
   font-style: italic;
   color: #999;
 }
-
 
 .input-container {
   display: flex;

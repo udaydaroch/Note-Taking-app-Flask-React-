@@ -10,6 +10,7 @@ function Notes({ note, deleteNote }) {
         <button className="button" onClick={deleteNote}>
           Delete
         </button>
+        <button className="button">share notes</button>
       </div>
     </div>
   );

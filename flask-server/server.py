@@ -1,10 +1,26 @@
-from flask import Flask, request, jsonify
+from flask import Flask, session, request, jsonify,redirect,url_for
 import json
-
+import os
 app = Flask(__name__)
 
 notes = []
 
+app.secret_key = os.urandom(24)
+
+@app.route('/', methods=['GET','POST'])
+def index():
+    print(request.form['password'])
+    print(request.form['username'])
+    if request.method == "POST":
+        session.pop('user', None)
+        if request.form['password'] == "password":
+            session['user'] = request.form['username']
+            return redirect(url_for('index'))
+        else:
+            return jsonify({'message': 'Login failed'})
+    else:
+        return jsonify({'message': 'Login successful'})
+    
 @app.route('/notes', methods=['GET'])
 def get_notes():
     load_notes()

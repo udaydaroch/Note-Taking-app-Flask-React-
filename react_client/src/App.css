@@ -24,15 +24,12 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.background {
+  background-color: rgb(155, 177, 196); /* Fallback color */
+  background-image: linear-gradient(to top right, #ced2e9, #ffffff); /* Gradient from bottom left to top right */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
