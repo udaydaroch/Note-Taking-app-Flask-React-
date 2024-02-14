@@ -20,6 +20,8 @@ function NoteTakingPage() {
     })
       .then(res => res.json())
       .then(data => {
+        console.log("loadingData")
+        console.log(data);
         setNotes(data);
       })
       .catch(error => {

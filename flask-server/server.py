@@ -9,7 +9,7 @@ app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'notetakingapp'
 
 mysql = MySQL(app)
-
+notes = []
 @app.route('/', methods=['POST'])
 def index():
     if request.method == 'POST':
@@ -19,11 +19,12 @@ def index():
         cur = mysql.connection.cursor()
         cur.execute("SELECT * FROM users WHERE username = %s", (username,))
         user = cur.fetchone()
+        print(user)
         cur.close()
         print(user)
         if user:
             if user[2] == password:  # Assuming the password is stored in the third column of the users table
-                session['user'] = username
+                session['user'] = user[0]
                 return jsonify({'message': 'Yes'})
             else:
                 return jsonify({'message': 'No - Invalid password or username'})
@@ -36,12 +37,11 @@ def get_notes():
     return load_notes()
 
 def load_notes():
-    global notes
     cur = mysql.connection.cursor()
-    cur.execute("SELECT note_id, content, background_color, creation_date FROM notes")
+    cur.execute("SELECT note_id, content, background_color, creation_date FROM notes WHERE user_id = %s", (session['user'],))
     notes_data = cur.fetchall()
     cur.close()
-    notes = [{'note_id':note[0],'notes': note[1], 'color': note[2], 'date': str(note[3])} for note in notes_data]
+    notes = [{'note_id': note[0], 'notes': note[1], 'color': note[2], 'date': str(note[3])} for note in notes_data]
     print(notes)
     return jsonify(notes)
 
@@ -66,11 +66,15 @@ def edit_note(note_id):
 
 @app.route('/add_note', methods=['POST'])
 def add_note():
+    if 'user' not in session:
+        return jsonify({'message': 'No user logged in'})
+    user_id = session['user']
+   
     note_text = request.form['note_text']
     note_color = request.form['note_color']
     note_date = request.form['note_date']
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO notes (content, background_color, creation_date) VALUES (%s, %s, %s)", (note_text, note_color, note_date))
+    cur.execute("INSERT INTO notes (content, background_color, creation_date, user_id) VALUES (%s, %s, %s, %s)", (note_text, note_color, note_date, user_id))
     mysql.connection.commit()
     cur.close()
     return jsonify({'message': 'Note added successfully'})

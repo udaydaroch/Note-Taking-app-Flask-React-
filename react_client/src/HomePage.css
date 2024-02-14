@@ -7,7 +7,7 @@
   text-align: center;
   max-width: 250px;
   display: inline-block;
-  width: 800px;
+  width: 600px;
   height: 400px;
 }
 
@@ -29,8 +29,19 @@
   color: hsl(0, 0, 40%);
 }
 
-/* Additional styles for the homepage container */
 .home-page {
   display: flex;
   justify-content: space-evenly; /* Adjust as needed */
 }
+
+@media (max-width: 768px) {
+  .home-page {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 600px; /* Adjust as needed */
+  }
+}
+

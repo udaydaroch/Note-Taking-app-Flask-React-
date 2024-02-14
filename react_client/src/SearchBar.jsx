@@ -73,6 +73,7 @@ function SearchBar({ allNotes, loadNote, deleteNote }) {
       <ul className="note-list">
         {currentNotes.map((note, index) => (
           <li key={index} className="note-item">
+            console.log("note being added");
             <Notes note={note} deleteNote={() => handleDeleteNote(index)} />
           </li>
         ))}

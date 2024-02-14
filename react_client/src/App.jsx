@@ -19,7 +19,6 @@ function App() {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         if (data && data.message === 'Yes') {
           isLoggedin(true);
           setErrorMessage('');

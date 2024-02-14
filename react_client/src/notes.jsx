@@ -5,7 +5,7 @@ function Notes({ note, deleteNote }) {
   return (
     <div className="note-card" style={{ backgroundColor: note.color }}>
       <p className="date">{note.date}</p>
-      <p>{note.text}</p>
+      <p>{note.notes}</p>
       <div className="button-wrapper">
         <button className="button" onClick={deleteNote}>
           Delete
