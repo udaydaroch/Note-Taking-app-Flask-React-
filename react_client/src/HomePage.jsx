@@ -54,10 +54,12 @@ function HomePage() {
       )}
 
       {activePage === 'noteTaking' && (
-       <div className="noteTaking">
-       
-       <NoteTakingPage ></NoteTakingPage>
-       </div> 
+       <div className="backcard">
+        
+          <button buttonName="Back" onClick={handleBackToHome} >Back</button>
+          <NoteTakingPage ></NoteTakingPage>
+     
+       </div>
 
 
       )}
@@ -66,7 +68,7 @@ function HomePage() {
         <div className="card">
           {/* Content for the "Ask for help" page */}
           <h1>Ask for help page content</h1>
-         
+          <button buttonName="Back" onClick={handleBackToHome} >Back</button>
         </div>
       )}
 
@@ -74,7 +76,7 @@ function HomePage() {
         <div className="card">
           {/* Content for the "Update info" page */}
           <h1>Update info page content</h1>
-          <button buttonName="Back" onClick={handleBackToHome} />
+          <button buttonName="Back" onClick={handleBackToHome} >Back</button>
         </div>
       )}
     </div>

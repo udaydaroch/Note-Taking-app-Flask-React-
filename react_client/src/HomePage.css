@@ -7,7 +7,7 @@
   text-align: center;
   max-width: 250px;
   display: inline-block;
-  width: 600px;
+  width: fit-content;
   height: 400px;
 }
 
@@ -41,10 +41,13 @@
   }
 
   .card {
-    width: 600px; /* Adjust as needed */
+    width: fit-content; /* Adjust as needed */
   }
 }
 
+.Back {
+  margin-right:200px;
+}
 
 .back-button {
   position: relative;
@@ -52,4 +55,15 @@
   right: 10px; 
   width: 100px;
   height: 100px;
+}
+.backcard {
+  border: 1px solid hsl(0, 0%, 80%);
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.1);
+  padding: 30px;
+  margin: 10px;
+  text-align: center;
+  display: inline-block;
+  width: fit-content;
+  height: fit-content;
 }
