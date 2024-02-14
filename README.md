@@ -3,15 +3,14 @@ A simple note-taking app that uses REACT FLASK and MySQL and hence the Installat
 Current features. 
 - include adding notes and searching them using the date they were made.( basic pagination work has been done as well)
 - has code to edit the notes on the spot but currently working on the front end for it
-
-Upcoming features. 
 - Connecting notes to the database.
-- UserLogin and authentication.
+- UserLogin and authentication(basic user login with two account)
 - user session.
 
 Plans.
 - users connecting to share notes.
 - adding users to friendlist.
+  
 
   
 
