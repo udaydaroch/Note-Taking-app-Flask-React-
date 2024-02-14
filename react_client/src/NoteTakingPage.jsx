@@ -63,7 +63,8 @@ function NoteTakingPage() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+  <div style={{ display: 'flex', flexDirection: 'column' }}>
+
   <Form 
     noteText={noteText} 
     setNoteText={setNoteText} 

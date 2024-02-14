@@ -45,3 +45,11 @@
   }
 }
 
+
+.back-button {
+  position: relative;
+  top: 10px; 
+  right: 10px; 
+  width: 100px;
+  height: 100px;
+}

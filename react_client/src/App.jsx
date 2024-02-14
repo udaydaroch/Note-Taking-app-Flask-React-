@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import AppHeader from './AppHeader.jsx';
 import Login from './Login.jsx';
 import HomePage from './HomePage.jsx';
+import AppHeader from './AppHeader.jsx';
+
 function App() {
   const [loggedin, isLoggedin] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showBackButton, setShowBackButton] = useState(false); // State for controlling the back button
 
   const handleLogin = () => {
     const formData = new FormData();
@@ -36,29 +38,28 @@ function App() {
       });
 };
 
-  return (
- 
-      <div className="background">
-        {loggedin ? (
-          <>
-            <AppHeader />
-             <HomePage />
-            
-          
-          </>
-        ) : (
-          <Login
-            username={username}
-            setUsername={setUsername}
-            password={password}
-            setPassword={setPassword}
-            handleLogin={handleLogin}
-            errorMessage={errorMessage}
-          />
-        )}
-      </div>
-
-  );
+return (
+  <div className="background">
+    {loggedin ? (
+      <>
+        <AppHeader ShowBack={showBackButton}/>
+        <HomePage setShowBackButton={setShowBackButton} /> {/* Pass setShowBackButton as a prop */}
+      </>
+    ) : (
+      <>
+        <AppHeader ShowBack={false}/>
+        <Login
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
+          handleLogin={handleLogin}
+          errorMessage={errorMessage}
+        />
+      </>
+    )}
+  </div>
+);
 }
 
 export default App;

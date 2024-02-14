@@ -1,17 +1,18 @@
 import React from 'react';
 
-function AppHeader(props) {
+function AppHeader({ ShowBack, handleBackToHome }) {
   const styles = {
     fontSize: "7em",
     color: "",
-    justifyContent:"center",
+    justifyContent: "center",
     alignSelf: "center",
-    display:"flex",
+    display: "flex",
     margin: 0
   };
-  //
+
   return (
-    <div >
+    <div>
+      {ShowBack && <button buttonName="Back" onClick={handleBackToHome}>Back</button>}
       <h1 style={styles}>Take Notes</h1>
     </div>
   );
