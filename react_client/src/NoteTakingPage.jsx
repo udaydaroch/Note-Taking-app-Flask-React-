@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Form from './Form';
-import AppHeader from './AppHeader';
 import SearchBar from './SearchBar.jsx';
 
 function NoteTakingPage() {

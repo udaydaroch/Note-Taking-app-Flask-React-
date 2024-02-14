@@ -9,13 +9,16 @@ function SearchBar({ allNotes, loadNote, deleteNote }) {
   const [notesPerPage] = useState(3);
 
   const handleSearch = () => {
-    const filtered = allNotes.filter(note => note.date === searchDate);
+    loadNote();
+    console.log(searchDate);
+    console.log(allNotes)
+    const filtered = allNotes.filter(note => String(note.date) === String(searchDate));
     setFilteredNotes(filtered);
     setCurrentPage(1);
   };
 
   const handleDeleteNote = (index) => {
-    deleteNote(index);
+    deleteNote(allNotes[index].note_id);
     setFilteredNotes(filteredNotes.filter((_, i) => i !== index));
     loadNote();
   };

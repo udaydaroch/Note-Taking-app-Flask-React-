@@ -17,18 +17,16 @@ function App() {
       body: formData,
       credentials: 'same-origin'
     })
-      .then(res => {
-        if (res.ok) {
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        if (data && data.message === 'Yes') {
           isLoggedin(true);
           setErrorMessage('');
-        } else {
-          return res.json();
-        }
-      })
-      .then(data => {
-        console.log(data)
-        if (data && data.message) {
-          setErrorMessage(data.message);
+        } else if (data && data.message === 'No - Invalid password or username') {
+          setErrorMessage('Invalid password or username');
+        } else if (data && data.message === 'No - Invalid password or username') {
+          setErrorMessage('Invalid username or username');
         } else {
           setErrorMessage('Unknown error occurred');
         }
@@ -37,7 +35,7 @@ function App() {
         console.error('Error logging in:', error);
         setErrorMessage('Error logging in: Please try again later');
       });
-  };
+};
 
   return (
  

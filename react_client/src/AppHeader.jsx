@@ -2,7 +2,7 @@ import React from 'react';
 
 function AppHeader(props) {
   const styles = {
-    fontSize: "8em",
+    fontSize: "7em",
     color: "",
     justifyContent:"center",
     alignSelf: "center",

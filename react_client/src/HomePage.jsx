@@ -9,7 +9,7 @@ function HomePage() {
   const handleTakeNotes = () => {
     setShowNoteTakingPage(true);
   };
-
+                          
   return (
     <div className="home-page">
       {!showNoteTakingPage && (
